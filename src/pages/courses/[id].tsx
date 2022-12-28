@@ -11,14 +11,13 @@ import { useRouter } from 'next/router'
 function CoursePage() {
   const { query } = useRouter()
   const [showSummary, setShowSummay] = useState(false)
-  const { data: course } = trpc.generate.useQuery({
+  const { data: course, isLoading } = trpc.getLesson.useQuery({
     id: (query.id as string) || '',
-    topic: (query.topic as string) || '',
   })
 
-  return !query?.id || !course ? (
+  return isLoading ? (
     <LoadingScreen />
-  ) : (
+  ) : course ? (
     <>
       <Banner />
       <Title course={course} />
@@ -29,6 +28,8 @@ function CoursePage() {
       {showSummary && <Summary summary={course.summary || ''} />}
       <Footer className="bg-white pt-24" />
     </>
+  ) : (
+    <div>404</div>
   )
 }
 

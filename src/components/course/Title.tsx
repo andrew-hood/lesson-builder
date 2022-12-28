@@ -17,11 +17,13 @@ export function Title({ course }: Props) {
         {course.title}
       </h1>
       <Avatar {...course.author} />
-      <img
-        src={course.image?.url}
-        className="my-10 h-96 w-full object-cover"
-        alt={course.title}
-      />
+      {!!course.image?.url && (
+        <img
+          src={course.image?.url}
+          className="my-10 h-96 w-full bg-slate-200 object-cover"
+          alt={course.title}
+        />
+      )}
       <p className="mx-auto mt-6 whitespace-pre-line text-lg tracking-tight text-slate-700">
         {course.introduction}
       </p>

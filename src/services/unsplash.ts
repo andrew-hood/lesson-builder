@@ -5,13 +5,10 @@ export const getRandomImage = async (topic: string) => {
       { method: 'GET' }
     )
     const result = await response.text()
-    return JSON.parse(result)
+    const data = JSON.parse(result)
+    return { url: data.urls.regular, credit: '' }
   } catch (err) {
     console.error(err)
-    return {
-      urls: {
-        regular: '',
-      },
-    }
+    return { url: '', credit: '' }
   }
 }

@@ -6,11 +6,10 @@ import { Course } from '@/utils/types'
 import { createLesson, getLesson } from '@/services/pocketbase'
 
 export const appRouter = router({
-  generate: procedure
+  getLesson: procedure
     .input(
       z.object({
-        id: z.string(),
-        topic: z.string(),
+        id: z.string().length(15),
       })
     )
     .query(async ({ input }) => {
@@ -18,31 +17,32 @@ export const appRouter = router({
         return null
       }
 
-      let course = await getLesson(input.id)
-      if (course) return course
+      return getLesson(input.id)
+    }),
+  createLesson: procedure
+    .input(
+      z.object({
+        topic: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const [content, image] = await Promise.all([
+        getContentFromAI(input.topic),
+        getRandomImage(input.topic),
+      ])
 
-      course = {
-        ...input,
-        title: `A quick lesson on ${input.topic}`,
+      const course = {
+        topic: input.topic,
+        title: `${input.topic}`, // not sure if this should change
         author: {
           name: 'Anonymous',
           avatar: '',
         },
+        image,
+        ...content,
       } as Course
 
-      const content = await getContentFromAI(input.topic)
-      course.introduction = content.introduction
-      course.questions = content.questions
-      course.summary = content.summary
-
-      const {
-        urls: { regular: imageUrl },
-      } = await getRandomImage(input.topic)
-      course.image = { url: imageUrl, credit: '' }
-
-      // save to db
-      await createLesson(course)
-      return course
+      return createLesson(course)
     }),
 })
 

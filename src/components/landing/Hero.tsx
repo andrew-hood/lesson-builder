@@ -1,25 +1,13 @@
 import Image from 'next/image'
 
-import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import logoMirage from '@/images/logos/mirage.svg'
 import logoStaticKit from '@/images/logos/statickit.svg'
 import logoTransistor from '@/images/logos/transistor.svg'
 import logoTuple from '@/images/logos/tuple.svg'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { uniqueId } from '@/utils/helper'
+import Generator from '../Generator'
 
 export function Hero() {
-  const { push } = useRouter()
-  const [topic, setTopic] = useState('')
-
-  const handleCreateLesson = () => {
-    if (topic === '') return
-
-    const id = uniqueId()
-    push(`/courses/${id}?topic=${topic}`)
-  }
   return (
     <Container className="pt-20 pb-16 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
@@ -41,25 +29,7 @@ export function Hero() {
         With the help of AI, you can create a custom lesson on any topic in a
         matter of seconds.
       </p>
-      <div className="mt-10 items-center sm:mx-auto sm:flex sm:max-w-lg">
-        <div className="min-w-0 flex-1">
-          <label htmlFor="input-topic" className="sr-only">
-            Topic
-          </label>
-          <input
-            id="input-topic"
-            type="text"
-            className="block w-full rounded-4xl border px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
-            placeholder="What do you want to learn?"
-            onChange={(e) => setTopic(e.target.value as string)}
-          />
-        </div>
-        <div className="mt-4 sm:mt-0 sm:ml-3">
-          <Button className="py-4 px-6" onClick={handleCreateLesson}>
-            Try it for free now
-          </Button>
-        </div>
-      </div>
+      <Generator />
 
       <div className="mt-36 lg:mt-44">
         <p className="font-display text-base text-slate-900">

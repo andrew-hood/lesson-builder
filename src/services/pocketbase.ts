@@ -5,12 +5,11 @@ export const getLesson = async (id: string) => {
   const pb = new PocketBase('https://go1-store.fly.dev')
 
   try {
-    const record = await pb.collection('lessons').getOne<Course>(id)
-    return record
+    return pb.collection('lessons').getOne<Course>(id)
   } catch (err) {
     console.error(err)
-    return null
   }
+  return null
 }
 
 export const createLesson = async (course: Course) => {
@@ -22,7 +21,7 @@ export const createLesson = async (course: Course) => {
       process.env.POCKETBASE_PASSWORD || ''
     )
 
-    await pb.collection('lessons').create({
+    return pb.collection('lessons').create<Course>({
       id: course.id,
       topic: course.topic,
       title: course.title,
@@ -35,4 +34,5 @@ export const createLesson = async (course: Course) => {
   } catch (err) {
     console.error(err.data)
   }
+  return null
 }
