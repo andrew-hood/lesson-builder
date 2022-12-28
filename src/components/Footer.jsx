@@ -9,9 +9,9 @@ export function Footer({ className }) {
         <div className="flex flex-col items-center border-t border-slate-400/10 py-10 sm:flex-row-reverse sm:justify-between">
           <div className="flex gap-x-6">
             <Link
-              href="https://github.com"
+              href="https://github.com/andrew-hood/lesson-builder"
               className="group"
-              aria-label="TaxPal on GitHub"
+              aria-label="LessonBuilder on GitHub"
             >
               <svg
                 aria-hidden="true"
