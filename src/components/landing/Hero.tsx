@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
 import { Container } from '@/components/Container'
-import logoMirage from '@/images/logos/mirage.svg'
-import logoStaticKit from '@/images/logos/statickit.svg'
-import logoTransistor from '@/images/logos/transistor.svg'
-import logoTuple from '@/images/logos/tuple.svg'
+import logoOpenAI from '@/images/logos/openai.svg'
+import logoNextJS from '@/images/logos/nextjs.svg'
+import logoTailwind from '@/images/logos/tailwind.svg'
+
 import Generator from '../Generator'
 
 export function Hero() {
@@ -33,7 +33,7 @@ export function Hero() {
 
       <div className="mt-36 lg:mt-44">
         <p className="font-display text-base text-slate-900">
-          Built using these popular technologies
+          Built on top of the best technologies
         </p>
         <ul
           role="list"
@@ -41,20 +41,15 @@ export function Hero() {
         >
           {[
             [
-              { name: 'OpenAI', logo: logoTransistor },
-              { name: 'NextJS 13', logo: logoTuple },
-              { name: 'Tailwind', logo: logoStaticKit },
-            ],
-            [
-              { name: 'Pocketbase', logo: logoMirage },
-              // { name: 'tRPC', logo: logoLaravel },
-              // { name: 'Unsplash', logo: logoStatamic },
+              { name: 'OpenAI', logo: logoOpenAI },
+              { name: 'NextJS 13', logo: logoNextJS },
+              { name: 'Tailwind', logo: logoTailwind },
             ],
           ].map((group, groupIndex) => (
             <li key={groupIndex}>
               <ul
                 role="list"
-                className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0"
+                className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-16 sm:gap-y-0 lg:gap-x-24"
               >
                 {group.map((company) => (
                   <li key={company.name} className="flex">
