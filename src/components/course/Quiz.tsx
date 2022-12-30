@@ -69,20 +69,22 @@ export function Quiz({ questions, onComplete }: Props) {
               {questions
                 .filter((_, index) => answers.length + 1 > index)
                 .map(({ question, options, answer }, index) => (
-                  <li key={index}>
-                    <div
-                      id={`question-${index}`}
-                      className="relative rounded-lg bg-white p-6 shadow-xl shadow-slate-900/10"
-                    >
-                      <p className="pb-4 text-lg tracking-tight text-slate-900">
-                        {question}
-                      </p>
-                      <MultipleChoice
-                        choices={options}
-                        answer={answer}
-                        onSelect={(value) => handleOnSelect(index, value)}
-                      />
-                    </div>
+                  <li
+                    key={index}
+                    id={`question-${index}`}
+                    className="relative rounded-lg bg-white p-6 shadow-xl shadow-slate-900/10"
+                  >
+                    <label className="text-sm font-bold tracking-wide text-slate-900">
+                      Question {index + 1}
+                    </label>
+                    <p className="pb-4 text-lg leading-7 tracking-tight text-slate-900">
+                      {question}
+                    </p>
+                    <MultipleChoice
+                      choices={options}
+                      answer={answer}
+                      onSelect={(value) => handleOnSelect(index, value)}
+                    />
                   </li>
                 ))}
             </ul>

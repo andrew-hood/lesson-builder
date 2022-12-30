@@ -6,11 +6,11 @@ import { Button } from '@/components/Button'
 import { TextField } from '@/components/Fields'
 import { Logo } from '@/components/Logo'
 
-export default function Login() {
+export default function Register() {
   return (
     <>
       <Head>
-        <title>Sign In - TaxPal</title>
+        <title>Sign Up - LessonBuilder</title>
       </Head>
       <AuthLayout>
         <div className="flex flex-col">
@@ -19,22 +19,42 @@ export default function Login() {
           </Link>
           <div className="mt-20">
             <h2 className="text-lg font-semibold text-gray-900">
-              Sign in to your account
+              Get started for free
             </h2>
             <p className="mt-2 text-sm text-gray-700">
-              Don’t have an account?{' '}
+              Already registered?{' '}
               <Link
-                href="/register"
+                href="/login"
                 className="font-medium text-blue-600 hover:underline"
               >
-                Sign up
+                Sign in
               </Link>{' '}
-              for a free trial.
+              to your account.
             </p>
           </div>
         </div>
-        <form action="#" className="mt-10 grid grid-cols-1 gap-y-8">
+        <form
+          action="#"
+          className="mt-10 grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-2"
+        >
           <TextField
+            label="First name"
+            id="first_name"
+            name="first_name"
+            type="text"
+            autoComplete="given-name"
+            required
+          />
+          <TextField
+            label="Last name"
+            id="last_name"
+            name="last_name"
+            type="text"
+            autoComplete="family-name"
+            required
+          />
+          <TextField
+            className="col-span-full"
             label="Email address"
             id="email"
             name="email"
@@ -43,14 +63,15 @@ export default function Login() {
             required
           />
           <TextField
+            className="col-span-full"
             label="Password"
             id="password"
             name="password"
             type="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
             required
           />
-          <div>
+          <div className="col-span-full">
             <Button
               type="submit"
               variant="solid"
@@ -58,7 +79,7 @@ export default function Login() {
               className="w-full"
             >
               <span>
-                Sign in <span aria-hidden="true">&rarr;</span>
+                Sign up <span aria-hidden="true">&rarr;</span>
               </span>
             </Button>
           </div>

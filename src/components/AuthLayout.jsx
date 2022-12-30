@@ -1,5 +1,4 @@
 import Image from 'next/image'
-
 import backgroundImage from '@/images/background-auth.jpg'
 
 export function AuthLayout({ children }) {
@@ -15,8 +14,8 @@ export function AuthLayout({ children }) {
           <Image
             className="absolute inset-0 h-full w-full object-cover"
             src={backgroundImage}
-            alt=""
-            unoptimized
+            placeholder="blur"
+            fill
           />
         </div>
       </div>

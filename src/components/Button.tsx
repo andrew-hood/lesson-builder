@@ -27,6 +27,7 @@ const variantStyles = {
 interface Props {
   variant?: string
   color?: string
+  type?: string
   className?: string
   href?: string
   onClick?: () => void
@@ -38,8 +39,10 @@ interface Props {
 export function Button({
   variant = 'solid',
   color = 'slate',
+  type = 'button',
   className = '',
   href,
+  disabled,
   loading = false,
   children,
   ...props
@@ -50,15 +53,22 @@ export function Button({
     className
   )
 
+  if (disabled) {
+    className = clsx(
+      className,
+      'bg-gray-300 hover:bg-gray-300 active:bg-gray-300 text-gray-500 hover:text-gray-500 active:text-gray-500'
+    )
+  }
+
   return href ? (
     <Link href={href} className={className} {...props}>
       {children}
     </Link>
   ) : (
-    <button className={className} {...props}>
+    <button className={className} disabled={disabled} {...props}>
       {loading ? (
         <>
-          <LoadingIcon /> Loading...
+          <LoadingIcon /> Generating...
         </>
       ) : (
         children
@@ -86,7 +96,7 @@ const LoadingIcon = () => {
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only">Generating...</span>
     </div>
   )
 }

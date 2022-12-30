@@ -3,21 +3,46 @@ import { procedure, router } from '../trpc'
 import { getRandomImage } from '@/services/unsplash'
 import { getContentFromAI } from '@/services/openai'
 import { Course } from '@/utils/types'
-import { createLesson, getLesson } from '@/services/pocketbase'
+import PocketBase from 'pocketbase'
+import { createLesson, getLesson, getLessons } from '@/services/pocketbase'
 
 export const appRouter = router({
+  currentUser: procedure.query(async ({ ctx }) => {
+    const pb: PocketBase = (ctx as any).pb
+    return pb.authStore.model
+  }),
   getLesson: procedure
     .input(
       z.object({
         id: z.string().length(15),
       })
     )
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       if (input.id === '') {
         return null
       }
-
-      return getLesson(input.id)
+      const pb: PocketBase = (ctx as any).pb
+      return getLesson(pb, input.id)
+    }),
+  getLessons: procedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100),
+        cursor: z.number().nullish(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const pb: PocketBase = (ctx as any).pb
+      const items = await getLessons(
+        pb,
+        input.cursor || 1,
+        input.limit,
+        `user.id = '${pb.authStore.model?.id}'`
+      )
+      return {
+        items,
+        nextCursor: input.cursor ? input.cursor + 1 : 2,
+      }
     }),
   createLesson: procedure
     .input(
@@ -25,7 +50,7 @@ export const appRouter = router({
         topic: z.string(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const [content, image] = await Promise.all([
         getContentFromAI(input.topic),
         getRandomImage(input.topic),
@@ -34,15 +59,12 @@ export const appRouter = router({
       const course = {
         topic: input.topic,
         title: `${input.topic}`, // not sure if this should change
-        author: {
-          name: 'Anonymous',
-          avatar: '',
-        },
         image,
         ...content,
       } as Course
 
-      return createLesson(course)
+      const pb: PocketBase = (ctx as any).pb
+      return createLesson(pb, course)
     }),
 })
 

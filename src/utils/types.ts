@@ -12,12 +12,11 @@ export interface Course {
     url: string
     credit: string
   }
-  author: {
-    name: string
-    avatar: string
-  }
   introduction?: string
   questions?: Question[]
   summary?: string
   updated?: string
+  expand?: {
+    user?: any
+  }
 }

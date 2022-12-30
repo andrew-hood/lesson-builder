@@ -1,11 +1,10 @@
 import Image from 'next/image'
-
 import { Container } from '@/components/Container'
+import { Button } from '../Button'
+
 import logoOpenAI from '@/images/logos/openai.svg'
 import logoNextJS from '@/images/logos/nextjs.svg'
 import logoTailwind from '@/images/logos/tailwind.svg'
-
-import Generator from '../Generator'
 
 export function Hero() {
   return (
@@ -29,27 +28,34 @@ export function Hero() {
         With the help of AI, you can create a custom lesson on any topic in a
         matter of seconds.
       </p>
-      <Generator />
+      <div className="mt-20 mb-40">
+        <Button href="#pricing" color="blue">
+          Try it for free
+        </Button>
+        <Button href="/courses" variant="outline" className="ml-2">
+          Check out lessons
+        </Button>
+      </div>
 
-      <div className="mt-36 lg:mt-44">
+      <div className="mt-28 lg:mt-32">
         <p className="font-display text-base text-slate-900">
-          Built on top of the best technologies
+          Built on top of leading technologies
         </p>
         <ul
           role="list"
-          className="mt-8 flex items-center justify-center gap-x-8 sm:flex-col sm:gap-x-0 sm:gap-y-10 xl:flex-row xl:gap-x-12 xl:gap-y-0"
+          className="mt-4 flex items-center justify-center gap-x-8 sm:flex-col sm:gap-x-0 sm:gap-y-10 xl:flex-row xl:gap-x-12 xl:gap-y-0"
         >
           {[
             [
-              { name: 'OpenAI', logo: logoOpenAI },
-              { name: 'NextJS 13', logo: logoNextJS },
               { name: 'Tailwind', logo: logoTailwind },
+              { name: 'OpenAI', logo: logoOpenAI },
+              { name: 'NextJS', logo: logoNextJS },
             ],
           ].map((group, groupIndex) => (
             <li key={groupIndex}>
               <ul
                 role="list"
-                className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-16 sm:gap-y-0 lg:gap-x-24"
+                className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-16 sm:gap-y-0 lg:gap-x-32"
               >
                 {group.map((company) => (
                   <li key={company.name} className="flex">

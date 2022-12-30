@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Container } from '@/components/Container'
 import clsx from 'clsx'
 
-export function Footer({ className }) {
+export function Footer({ className = '' }) {
   return (
     <footer className={clsx(className ? className : "bg-slate-50")}>
       <Container>

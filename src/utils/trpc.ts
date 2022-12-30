@@ -17,6 +17,11 @@ function getBaseUrl() {
 export const trpc = createTRPCNext<AppRouter>({
   config({ ctx }) {
     return {
+      headers() {
+        return {
+          cookie: ctx?.req?.headers.cookie,
+        }
+      },
       links: [
         httpBatchLink({
           /**

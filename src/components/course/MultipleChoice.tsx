@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import clsx from 'clsx'
-import { CheckIcon } from '@heroicons/react/24/outline'
 
 interface Props {
   choices: string[]
@@ -11,10 +10,6 @@ interface Props {
 
 export function MultipleChoice({ choices, answer, onSelect }: Props) {
   const [selected, setSelected] = useState<string | null>(null)
-
-  useEffect(() => {
-    console.log(selected)
-  }, [selected])
 
   const handleOnChange = (value: string) => {
     setSelected(value)
@@ -73,9 +68,6 @@ export function MultipleChoice({ choices, answer, onSelect }: Props) {
                   >
                     {choice}
                   </RadioGroup.Label>
-                  {/* {checked && choice === answer && (
-                    <CheckIcon className="h-5 w-5" />
-                  )} */}
                 </span>
               </>
             )}
